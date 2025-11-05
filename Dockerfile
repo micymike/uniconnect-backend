@@ -8,12 +8,11 @@ RUN npm ci --only=production
 
 COPY . .
 
-RUN npm i compression
-
-RUN npm i 
+RUN npm install compression
+RUN npm install
 
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["npm", "run", "start:prod"]

@@ -10,7 +10,8 @@ services:
       POSTGRES_USER: uniconnect
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      "3001:3000"
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
