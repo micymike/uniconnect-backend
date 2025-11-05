@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: uniconnect_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: uniconnect_db
+      POSTGRES_USER: uniconnect
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - uniconnect_network
+
+  app:
+    build: .
+    container_name: uniconnect_app
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=uniconnect
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=uniconnect_db
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - postgres
+    networks:
+      - uniconnect_network
+
+volumes:
+  postgres_data:
+
+networks:
+  uniconnect_network:
+    driver: bridge
