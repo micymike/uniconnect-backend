@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: uniconnect
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3004:3000"
+      - "5500:3000"
 
     volumes:
       - postgres_data:/var/lib/postgresql/data

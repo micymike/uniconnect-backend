@@ -13,6 +13,6 @@ RUN npm install
 
 RUN npm run build
 
-EXPOSE 3004
+EXPOSE 5500
 
 CMD ["npm", "run", "start:prod"]
